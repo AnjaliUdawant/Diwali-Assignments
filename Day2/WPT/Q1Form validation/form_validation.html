@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Form Validation</title>
+  <style>
+    body { font-family: Arial; margin: 30px; }
+    form { width: 350px; }
+    .error { color: red; font-size: 13px; margin-left: 10px; }
+    input { display: block; margin-bottom: 10px; padding: 5px; width: 100%; }
+    label { font-weight: bold; }
+    button { padding: 8px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+
+<h2>Registration Form</h2>
+<form id="regForm" onsubmit="return validateForm()">
+  <label>First Name:</label>
+  <input type="text" id="fname">
+  <span id="fnameError" class="error"></span>
+
+  <label>Last Name:</label>
+  <input type="text" id="lname">
+  <span id="lnameError" class="error"></span>
+
+  <label>Email:</label>
+  <input type="text" id="email">
+  <span id="emailError" class="error"></span>
+
+  <label>User ID:</label>
+  <input type="text" id="userid">
+  <span id="useridError" class="error"></span>
+
+  <label>Password:</label>
+  <input type="password" id="password">
+  <span id="passwordError" class="error"></span>
+
+  <label>Confirm Password:</label>
+  <input type="password" id="cpassword">
+  <span id="cpasswordError" class="error"></span>
+
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+function validateForm() {
+  let valid = true;
+
+  // Clear previous errors
+  document.querySelectorAll(".error").forEach(e => e.innerText = "");
+
+  let fname = document.getElementById("fname").value.trim();
+  let lname = document.getElementById("lname").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let userid = document.getElementById("userid").value.trim();
+  let password = document.getElementById("password").value.trim();
+  let cpassword = document.getElementById("cpassword").value.trim();
+
+  // First name
+  if (fname === "") {
+    document.getElementById("fnameError").innerText = "First name is required";
+    valid = false;
+  }
+
+  // Last name
+  if (lname === "") {
+    document.getElementById("lnameError").innerText = "Last name is required";
+    valid = false;
+  }
+
+  // Email validation
+  let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  if (email === "") {
+    document.getElementById("emailError").innerText = "Email is required";
+    valid = false;
+  } else if (!email.match(emailPattern)) {
+    document.getElementById("emailError").innerText = "Invalid email format";
+    valid = false;
+  }
+
+  // User ID
+  if (userid === "") {
+    document.getElementById("useridError").innerText = "User ID is required";
+    valid = false;
+  }
+
+  // Password
+  if (password === "") {
+    document.getElementById("passwordError").innerText = "Password is required";
+    valid = false;
+  }
+
+  // Confirm password
+  if (cpassword === "") {
+    document.getElementById("cpasswordError").innerText = "Please confirm password";
+    valid = false;
+  } else if (password !== cpassword) {
+    document.getElementById("cpasswordError").innerText = "Passwords do not match";
+    valid = false;
+  }
+
+  return valid;
+}
+</script>
+
+</body>
+</html>
